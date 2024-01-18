@@ -1,0 +1,16 @@
+{
+  "name": "web-components",
+  "version": "1.0.0",
+  "description": "Isomorphic Web Components",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:debug": "playwright test --debug"
+  },
+  "author": "Jacob Knaack",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.41.0",
+    "live-server": "^1.2.2"
+  }
+}

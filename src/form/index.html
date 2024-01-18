@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="module" src="./Form.js"></script>
+</head>
+<body>
+  <h1>Form Test</h1>
+  <section id="output"></section>
+  <script>
+    function printOutput(values) {
+      let outputEl = document.getElementById('output');
+      
+      Object.keys(values).forEach(key => {
+        let valueEl = document.createElement('p');
+        valueEl.textContent = values[key];
+        outputEl.appendChild(valueEl); 
+      })
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const form = document.createElement('app-form');
+      document.body.appendChild(form);
+      form.setLegend('Test Legend');
+      form.addInput('text', 'test-id-1', 'test label 1');
+      form.addInput('text', 'test-id-2', 'test label 2');
+      form.onSubmit(printOutput);
+    });
+  </script>
+</body>
+</html>
