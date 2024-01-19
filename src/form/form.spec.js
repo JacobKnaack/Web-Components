@@ -5,7 +5,7 @@ test.beforeAll(async () => {
   const params = {
     root: 'src/form',
     file: 'index.html',
-    open: 'false'
+    open: 'false',
   }
   liveServer.start(params);
 });

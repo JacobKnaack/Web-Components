@@ -20,6 +20,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       const form = document.createElement('app-form');
       document.body.appendChild(form);
+      form.setBackgroundColor('pink');
       form.setLegend('Test Legend');
       form.addInput('text', 'test-id-1', 'test label 1');
       form.addInput('text', 'test-id-2', 'test label 2');

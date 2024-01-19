@@ -6,7 +6,7 @@ export default class AppForm extends HTMLElement {
     this.callback = null;
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
-      <link rel="stylesheet" href="./form.css">
+      <link id="style-link" rel="stylesheet" href="./form.css">
 
       <form id="app-form-container">
         <fieldset id="app-form-inputs"></fieldset>
@@ -30,6 +30,7 @@ export default class AppForm extends HTMLElement {
     input.type = 'text';
     input.name = name;
     input.id = name;
+    input.required = true;
     label.textContent = text;
     label.for = name;
     label.appendChild(input);
@@ -74,6 +75,12 @@ export default class AppForm extends HTMLElement {
       default:
         throw new Error('Error creating new input');
     }
+  }
+  setBackgroundColor(colorValue) {
+    let container = AppForm.getElement();
+    let styles = container.getElementsByTagName('style')[0] || document.createElement('style');
+    styles.innerText += `:host form { background-color: ${colorValue};}`
+    container.append(styles);
   }
 }
 

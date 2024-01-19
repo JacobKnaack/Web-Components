@@ -4,11 +4,18 @@
   <script type="module" src="./Navigation.js"></script>
 </head>
 <body>
-  <header id="header"></header>
+  <header id="header">
+    <h1>Navigation Test</h1>
+  </header>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
+      let header = document.getElementById('header');
       let navigation = document.createElement('app-nav');
-    })
+      header.append(navigation);
+      navigation.addItem('test link 1', 'http://test1.url');
+      navigation.addItem('test link 2', 'http://test2.url');
+      navigation.addItem('LinkToGoogle', 'https://google.com');
+    });
   </script>
 </body>
 </html>
