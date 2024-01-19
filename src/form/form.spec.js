@@ -4,9 +4,13 @@ import liveServer from 'live-server';
 test.beforeAll(async () => {
   const params = {
     root: 'src/form',
-    file: 'index.html'
+    file: 'index.html',
+    open: 'false'
   }
   liveServer.start(params);
+});
+test.afterAll(async () => {
+  liveServer.shutdown();
 });
 
 test('Has Form title and input labels visible in Browser', async ({ page }) => {

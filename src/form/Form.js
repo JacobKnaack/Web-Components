@@ -6,25 +6,8 @@ export default class AppForm extends HTMLElement {
     this.callback = null;
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: flex;
-          flex-direction: column;
-          padding: 8px;
-          max-width: 900px;
-          margin: 0 auto;
-        }
-        :host fieldset {
-          display: flex;
-          flex-direction: column;
-        }
-        :host input {
-            margin: 0 4px;
-          }
-        :host label {
-          margin: 4px;
-        }
-      </style>
+      <link rel="stylesheet" href="./form.css">
+
       <form id="app-form-container">
         <fieldset id="app-form-inputs"></fieldset>
         <button id="app-form-submit-bttn" type="submit">Submit</button>
@@ -32,6 +15,8 @@ export default class AppForm extends HTMLElement {
     `;
   }
 
+  // can we generate proper HTML and CSS from some sort of template?
+  static generateRoot(shadowRootTemplate) {}
   static getElement() {
     let container = document.querySelector('app-form');
     return container.shadowRoot.querySelector('#app-form-container');
@@ -68,7 +53,6 @@ export default class AppForm extends HTMLElement {
   }
   onSubmit(callback) {
     this.callback = callback;
-    console.log(this);
   }
   setLegend(text) {
     let formContainer = AppForm.getElement();
