@@ -3,7 +3,7 @@ import liveServer from 'live-server';
 
 test.beforeAll(async () => {
   const params = {
-    root: 'src/navigation',
+    root: 'src/components/navigation',
     file: 'index.html',
     open: 'false',
   }

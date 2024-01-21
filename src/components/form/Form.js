@@ -15,8 +15,6 @@ export default class AppForm extends HTMLElement {
     `;
   }
 
-  // can we generate proper HTML and CSS from some sort of template?
-  static generateRoot(shadowRootTemplate) {}
   static getElement() {
     let container = document.querySelector('app-form');
     return container.shadowRoot.querySelector('#app-form-container');
@@ -49,7 +47,6 @@ export default class AppForm extends HTMLElement {
     for (let el of formInputs) {
       values[el.id] = el.value; 
     }
-    console.log(this);
     this.callback(values);
   }
   onSubmit(callback) {
@@ -66,11 +63,11 @@ export default class AppForm extends HTMLElement {
       AppForm.getInputs().prepend(legendEl);
     }
   }
-  addInput(type, id, labelText) {
+  addInput(type, params) {
     let inputs = AppForm.getInputs();
     switch(type) {
       case 'text':
-        inputs.append(AppForm.createTextInput(id, labelText));
+        inputs.append(AppForm.createTextInput(params.id, params.label));
         break;
       default:
         throw new Error('Error creating new input');

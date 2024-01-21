@@ -22,8 +22,8 @@
       document.body.appendChild(form);
       form.setBackgroundColor('pink');
       form.setLegend('Test Legend');
-      form.addInput('text', 'test-id-1', 'test label 1');
-      form.addInput('text', 'test-id-2', 'test label 2');
+      form.addInput('text', { id: 'test-id-1', label: 'test label 1' });
+      form.addInput('text', { id: 'test-id-2', label: 'test label 2' });
       form.onSubmit(printOutput);
     });
   </script>

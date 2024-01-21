@@ -3,7 +3,7 @@ import liveServer from 'live-server';
 
 test.beforeAll(async () => {
   const params = {
-    root: 'src/form',
+    root: 'src/components/form',
     file: 'index.html',
     open: 'false',
   }
