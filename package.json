@@ -1,7 +1,7 @@
 {
-  "name": "web-components",
+  "name": "jsdom-web-components",
   "version": "1.0.0",
-  "description": "Isomorphic Web Components",
+  "description": "Isomorphic Web Components for the DOM API.",
   "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack",
@@ -11,6 +11,10 @@
   },
   "author": "Jacob Knaack",
   "license": "ISC",
+  "homepage": "https://github.com/JacobKnaack/Web-Components",
+  "bugs": {
+    "url": "https://github.com/JacobKnaack/Web-Components/issues"
+  },
   "devDependencies": {
     "@playwright/test": "^1.41.0",
     "live-server": "^1.2.2",
