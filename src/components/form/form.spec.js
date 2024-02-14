@@ -24,11 +24,10 @@ test('Has Form title and input labels visible in Browser', async ({ page }) => {
 test('Can add a callback and click submit', async ({ page }) => {
   await page.goto(`http://localhost:8080`);
   let input1 = 'test input 1';
-  let input2 = 'test input 2';
 
   await page.getByLabel('test label 1').fill(input1);
-  await page.getByLabel('test label 2').fill(input2);
+  await page.getByLabel('option 1').click();
   await page.getByRole('button', { name: "Submit" }).click();
   await expect(await page.getByText(input1)).toBeVisible();
-  await expect(await page.getByText(input2)).toBeVisible();
+  await expect(await page.getByText('option-1')).toBeVisible();
 });

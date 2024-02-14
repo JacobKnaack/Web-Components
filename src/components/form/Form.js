@@ -98,6 +98,27 @@ export default class AppForm extends HTMLElement {
     label.appendChild(input);
     return label;
   }
+  static createOptionInput(name, text, values) {
+    let label = document.createElement('label');
+    label.textContent=text;
+    label.setAttribute('for', name);
+    let input = document.createElement('select');
+    input.setAttribute('id', name);
+    input.setAttribute('name', name);
+    values.forEach(value => {
+      let option = document.createElement('option');
+      if (value.value && value.text) {
+        option.setAttribute('value', value.value);
+        option.textContent = value.text;
+      } else {
+        option.setAttribute('value', value.replace(/\s+/g, '-').toLowerCase());
+        option.textContent = value;
+      }
+      input.appendChild(option);
+    });
+    label.appendChild(input);
+    return label;
+  }
 
   connectedCallback() {
     let formContainer = AppForm.getElement();
@@ -107,11 +128,18 @@ export default class AppForm extends HTMLElement {
     e.preventDefault();
 
     const values = {}
-    let formInputs = e.target.getElementsByTagName('input');
+    let formInputs = [
+      ...e.target.getElementsByTagName('input'),
+      ...e.target.getElementsByTagName('select')
+    ];
     for (let el of formInputs) {
       values[el.id] = el.value; 
     }
-    this.callback(values);
+    if (this.callback) {
+      this.callback(values);
+    } else {
+      console.warn('No Form Submission event, provide a callback to onSubmit');
+    }
   }
   onSubmit(callback) {
     this.callback = callback;
@@ -127,14 +155,22 @@ export default class AppForm extends HTMLElement {
       AppForm.getInputs().prepend(legendEl);
     }
   }
-  addInput(type, params) {
+  addOptionInput(params) {
+    // adds a multiple option form input element with and id, label and options
     let inputs = AppForm.getInputs();
-    switch(type) {
-      case 'text':
-        inputs.append(AppForm.createTextInput(params.id, params.label));
-        break;
-      default:
-        throw new Error('Error creating new input');
+    try {
+      inputs.append(AppForm.createOptionInput(params.id, params.label, params.values));
+    } catch(e) {
+      console.log(e);
+      throw new Error('App Form Error: unable to create option input', e);
+    }
+  }
+  addTextInput(params) {
+    let inputs = AppForm.getInputs();
+    try {
+      inputs.append(AppForm.createTextInput(params.id, params.label));
+    } catch(e) {
+      throw new Error('App Form Error: unable to create text input', e);
     }
   }
   setBackgroundColor(colorValue) {
