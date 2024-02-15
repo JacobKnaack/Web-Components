@@ -26,8 +26,22 @@ test('Can add a callback and click submit', async ({ page }) => {
   let input1 = 'test input 1';
 
   await page.getByLabel('test label 1').fill(input1);
-  await page.getByLabel('option 1').click();
   await page.getByRole('button', { name: "Submit" }).click();
   await expect(await page.getByText(input1)).toBeVisible();
-  await expect(await page.getByText('option-1')).toBeVisible();
+});
+test('Can add drop down menu input', async ({ page }) => {
+  await page.goto(`http://localhost:8080`);
+
+  await page.getByLabel('test label 1').fill('test');
+  await page.locator('[name=test-id-2]').selectOption('option 2');
+  await page.getByRole('button', { name: "Submit" }).click();
+  await expect(await page.getByText('option-2')).toBeVisible();
+});
+test('Can add a multiple choice input', async ({ page }) => {
+  await page.goto(`http://localhost:8080`);
+
+  await page.getByLabel('test label 1').fill('test');
+  await page.getByText(/option 3/i).click();
+  await page.getByRole('button', { name: "Submit" }).click();
+  await expect(await page.getByText('true')).toBeVisible();
 });

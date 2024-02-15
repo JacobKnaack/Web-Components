@@ -14,7 +14,7 @@
       Object.keys(values).forEach(key => {
         let valueEl = document.createElement('p');
         valueEl.textContent = values[key];
-        outputEl.appendChild(valueEl); 
+        outputEl.appendChild(valueEl);
       });
     }
 
@@ -25,6 +25,7 @@
       form.setLegend('Test Legend');
       form.addTextInput({ id: 'test-id-1', label: 'test label 1' });
       form.addOptionInput({ id: 'test-id-2', label: 'test label 2', values: ['option 1', 'option 2'] });
+      form.addRadioInput({ id: 'test-id-3', label: 'test label 3', values: ['option 3', 'option 4'] });
       form.onSubmit(printOutput);
     });
   </script>
