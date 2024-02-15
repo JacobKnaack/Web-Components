@@ -41,18 +41,24 @@ export default class AppNavigation extends HTMLElement {
       </style>
 
       <nav id="app-nav-container"></nav>
-    `
+    `;
   }
-  static getElement() {
-    let container = document.querySelector('app-nav');
-    return container.shadowRoot.querySelector('#app-nav-container');
+  #getElement() {
+    return this.shadowRoot.querySelector('#app-nav-container');
   };
   addItem(label, url) {
-    let container = AppNavigation.getElement();
+    let container = this.#getElement();
     const anchor = document.createElement('a');
     anchor.href = url;
     anchor.textContent = label;
     container.appendChild(anchor);
+  }
+  render(element) {
+    if (element) {
+      element.append(this);
+    } else {
+      document.currentScript.insertAdjacentElement('afterend', this);
+    }
   }
 }
 

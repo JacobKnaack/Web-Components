@@ -1,4 +1,4 @@
-# Web Components
+# JS-DOM Web Components
 
 Native Isomorphic Web Components built on top of the JavaScript Document Object Model. Extends existing HTML DOM Elements.
 

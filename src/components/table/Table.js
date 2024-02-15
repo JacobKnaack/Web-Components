@@ -44,24 +44,21 @@ export default class AppTable extends HTMLElement {
       </table>
     `;
   }
-  static #getFooter() {
-    let container = document.querySelector('app-table');
-    return container.shadowRoot.querySelector('#app-table-footer');
+  #getFooter() {
+    return this.shadowRoot.querySelector('#app-table-footer');
   }
-  static #getHead() {
-    let container = document.querySelector('app-table');
-    return container.shadowRoot.querySelector('#app-table-head');
+  #getHead() {
+    return this.shadowRoot.querySelector('#app-table-head');
   }
-  static #getBody() {
-    let container = document.querySelector('app-table');
-    return container.shadowRoot.querySelector('#app-table-body');
+  #getBody() {
+    return this.shadowRoot.querySelector('#app-table-body');
   }
   setCaption(text) {
     let container = document.querySelector('app-table');
     container.shadowRoot.querySelector('#app-table-caption').textContent = text;
   }
   addRow(value, ...args) {
-    let tableBody = AppTable.#getBody();
+    let tableBody = this.#getBody();
     let row = document.createElement('tr');
     let cell = document.createElement('td');
     cell.textContent = value;
@@ -77,7 +74,7 @@ export default class AppTable extends HTMLElement {
   }
   addColumn(value) {
     this.columns.push(value);
-    let head = AppTable.#getHead();
+    let head = this.#getHead();
     let headRow = head.querySelector('tr') || document.createElement('tr');
 
     let cell = document.createElement('th');
@@ -86,6 +83,13 @@ export default class AppTable extends HTMLElement {
 
     head.innerHTML=null;
     head.appendChild(headRow);
+  }
+  render(element) {
+    if (element) {
+      element.append(this);
+    } else {
+      document.currentScript.insertAdjacentElement('afterend', this);
+    }
   }
 }
 

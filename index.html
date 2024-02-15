@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSDOM Web Components</title>
+  <script type="module" src="/src/index.js"></script>
+  <style>
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>JS DOM Web Components</h1>
+    <p>Web Components native to the JS Document Object Model API.</p>
+    <section id="nav"></section>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        let nav = document.createElement('app-nav');
+        nav.addItem('Forms', './src/components/form');
+        nav.addItem('Navigation', './src/components/navigation');
+        nav.addItem('Tables', './src/components/table');
+        nav.render(document.querySelector('#nav'));
+      });
+    </script>
+  </header>
+  <main>
+    <h2>Gallery </h2>
+    <section>
+      <div>
+        <p>Forms</p>
+        <section id="form"></section>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            let form = document.createElement('app-form');
+            form.setLegend('Your Awesome Form');
+            form.addTextInput({id: 'name', label: 'Enter your name'});
+            form.render(document.querySelector('#form'));
+          });
+        </script>
+      </div>
+      <div>
+        <p>Tables</p>
+        <section id="table"></section>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            let table = document.createElement('app-table');
+            table.addColumn('Names');
+            table.addColumn('Phone Numbers');
+            table.addRow('Jacob', '(111)-222-3333');
+            table.addRow('Thomas', '(111)-222-3333');
+            table.render(document.querySelector('#table'));
+          });
+        </script>
+      </div>
+    </section>
+  </main>
+  <footer>
+    Built By @JacobKnaack
+  </footer>
+</body>
+</html>

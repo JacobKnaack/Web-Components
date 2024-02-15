@@ -107,13 +107,6 @@ export default class AppForm extends HTMLElement {
   static normalizeLabel(text) {
     return text.replace(/\s+/g, '-').toLowerCase();
   }
-  static getElement() {
-    let container = document.querySelector('app-form');
-    return container.shadowRoot.querySelector('#app-form-container');
-  }
-  static getInputs() {
-    return AppForm.getElement().getElementsByTagName('fieldset')[0];
-  }
   static createTextInput(name, text) {
     let input = document.createElement('input');
     let label = document.createElement('label');
@@ -171,8 +164,14 @@ export default class AppForm extends HTMLElement {
     return container;
   }
 
+  #getInputs() {
+    return this.#getElement().getElementsByTagName('fieldset')[0];
+  }
+  #getElement() {
+    return this.shadowRoot.querySelector('#app-form-container');
+  }
   connectedCallback() {
-    let formContainer = AppForm.getElement();
+    let formContainer = this.#getElement();
     formContainer.addEventListener('submit', this.handleSubmit);
   }
   handleSubmit = (e) => {
@@ -196,18 +195,18 @@ export default class AppForm extends HTMLElement {
     this.callback = callback;
   }
   setLegend(text) {
-    let formContainer = AppForm.getElement();
+    let formContainer = this.#getElement();
     let legendEl = formContainer.getElementsByTagName('legend')[0];
     if (legendEl) {
       legendEl.textContent = text;
     } else {
       legendEl = document.createElement('legend');
       legendEl.innerText = text;
-      AppForm.getInputs().prepend(legendEl);
+      this.#getInputs().prepend(legendEl);
     }
   }
   addRadioInput(params) {
-    let inputs = AppForm.getInputs();
+    let inputs = this.#getInputs();
     try {
       inputs.append(AppForm.createRadioInput(params.id, params.label, params.values));
     } catch (e) {
@@ -215,7 +214,7 @@ export default class AppForm extends HTMLElement {
     }
   }
   addOptionInput(params) {
-    let inputs = AppForm.getInputs();
+    let inputs = this.#getInputs();
     try {
       inputs.append(AppForm.createOptionInput(params.id, params.label, params.values));
     } catch(e) {
@@ -223,7 +222,7 @@ export default class AppForm extends HTMLElement {
     }
   }
   addTextInput(params) {
-    let inputs = AppForm.getInputs();
+    let inputs = this.#getInputs();
     try {
       inputs.append(AppForm.createTextInput(params.id, params.label));
     } catch(e) {
@@ -231,10 +230,17 @@ export default class AppForm extends HTMLElement {
     }
   }
   setBackgroundColor(colorValue) {
-    let container = AppForm.getElement();
+    let container = this.#getElement();
     let styles = container.getElementsByTagName('style')[0] || document.createElement('style');
     styles.innerText += `:host form { background-color: ${colorValue};}`
     container.append(styles);
+  }
+  render(element) {
+    if (element) {
+      element.append(this);
+    } else {
+      document.currentScript.insertAdjacentElement('afterend', this);
+    }
   }
 }
 
