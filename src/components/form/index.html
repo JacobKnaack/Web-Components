@@ -4,7 +4,10 @@
   <script type="module" src="./Form.js"></script>
 </head>
 <body>
-  <h1>Form Test</h1>
+  <header>
+    <h1>Form Test</h1>
+    <button id="require-input">Add Required Input</button>
+  </header>
   <section id="output"></section>
   <script>
     function printOutput(values) {
@@ -26,7 +29,12 @@
       form.addTextInput({ id: 'test-id-1', label: 'test label 1' });
       form.addOptionInput({ id: 'test-id-2', label: 'test label 2', values: ['option 1', 'option 2'] });
       form.addRadioInput({ id: 'test-id-3', label: 'test label 3', values: ['option 3', 'option 4'] });
+      form.addDatePicker({ id: 'test-id-4', label: 'test label 4' });
       form.onSubmit(printOutput);
+    
+      document.querySelector('#require-input').addEventListener('click', () => {
+        form.addTextInput({ id: 'test-id-5', label: 'test label 5', required: true });
+      });
     });
   </script>
 </body>

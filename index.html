@@ -38,7 +38,9 @@
           document.addEventListener('DOMContentLoaded', () => {
             let form = document.createElement('app-form');
             form.setLegend('Your Awesome Form');
+            form.setButtonText('Click Me!');
             form.addTextInput({id: 'name', label: 'Enter your name'});
+            form.addDatePicker('When did you learn to drive?');
             form.render(document.querySelector('#form'));
           });
         </script>

@@ -26,21 +26,21 @@ export default class AppForm extends HTMLElement {
         }
 
         :host fieldset {
-          border: none;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
           border-radius: 8px;
-          padding: 40px 20px 20px 20px;
+          border: thin solid lightgrey;
+          padding: 0 20px 20px 20px;
           margin-bottom: 12px;
           background-color: #ffffff;
         }
 
-        :host legend {
-          position: relative;
-          top: 28px;
+        :host #form-legend {
+          display: none;
+        }
+
+        :host #form-heading {
+          font-weight: bold;
           font-size: 18px;
           color: #333333;
-          font-weight: bold;
-          margin-bottom: 10px;
         }
 
         :host input,
@@ -69,12 +69,17 @@ export default class AppForm extends HTMLElement {
           color: #333333;
           font-weight: lighter; 
         }
+        :host .label-text {
+          padding-left: 4px;
+        }
         :host label:has(select) {
           display: flex;
           flex-direction: column;
         }
         :host label select {
           padding: 8px;
+          border: thin solid lightgrey;
+          border-radius: 5px;
         }
         :host .radio-inputs {
           margin: 16px 0;
@@ -83,13 +88,14 @@ export default class AppForm extends HTMLElement {
           margin: 0;
         }
         :host .radio-option {
-          border: thin solid grey;
+          border: thin solid lightgrey;
           border-radius: 5px;
           display: flex;
           flex-direction: row;
           justify-content: flex-start;
           align-items: center;
           padding: 4px;
+          margin: 2px 0;
         }
         :host .radio-option input {
           width: auto;
@@ -107,21 +113,34 @@ export default class AppForm extends HTMLElement {
   static normalizeLabel(text) {
     return text.replace(/\s+/g, '-').toLowerCase();
   }
-  static createTextInput(name, text) {
-    let input = document.createElement('input');
+  static createInputLabel(text) {
     let label = document.createElement('label');
-    input.type = 'text';
-    input.name = name;
-    input.id = name;
-    input.required = true;
-    label.textContent = text;
-    label.for = name;
+    let labelText = document.createElement('span');
+    labelText.textContent = text;
+    labelText.classList.add('label-text');
+    label.append(labelText);
+    return label;
+  }
+  static createTextInput(name, text, options) {
+    let input = document.createElement('input');
+    let label = AppForm.createInputLabel(text);
+    label.setAttribute('for', name);
+    let { required } = options ? options : {};
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', name);
+    input.setAttribute('id', name);
     label.appendChild(input);
+    if (required) {
+      input.setAttribute('required', true);
+      let span = document.createElement('span');
+      span.textContent = '*';
+      span.setAttribute('style', 'color: red; font-size: 1em; margin: 0 4px;')
+      label.prepend(span);
+    }
     return label;
   }
   static createOptionInput(name, text, values) {
-    let label = document.createElement('label');
-    label.textContent=text;
+    let label = AppForm.createInputLabel(text);
     label.setAttribute('for', name);
     let input = document.createElement('select');
     input.setAttribute('id', name);
@@ -146,6 +165,7 @@ export default class AppForm extends HTMLElement {
     container.classList.add('radio-inputs');
     let label = document.createElement('p');
     label.textContent = text;
+    label.classList.add('label-text');
     container.appendChild(label);
     values.forEach(value => {
       let optionContainer  = document.createElement('div');
@@ -192,18 +212,45 @@ export default class AppForm extends HTMLElement {
     }
   }
   onSubmit(callback) {
-    this.callback = callback;
+    if (typeof callback === 'function') {
+      this.callback = callback;
+    } else {
+      throw new Error('App Form Error: callback must be a function');
+    }
   }
   setLegend(text) {
-    let formContainer = this.#getElement();
-    let legendEl = formContainer.getElementsByTagName('legend')[0];
+    let legendEl = this.shadowRoot.getElementById('form-legend');
+    let headingEl = this.shadowRoot.getElementById('form-heading');
     if (legendEl) {
       legendEl.textContent = text;
+      headingEl.textContent = text;
     } else {
       legendEl = document.createElement('legend');
-      legendEl.innerText = text;
+      legendEl.setAttribute('id', 'form-legend');
+      legendEl.setAttribute('aria-hidden', 'true');
+      legendEl.textContent = text;
+      headingEl = document.createElement('h3');
+      headingEl.setAttribute('id', 'form-heading');
+      headingEl.textContent = text;
+      this.#getInputs().prepend(headingEl);
       this.#getInputs().prepend(legendEl);
     }
+  }
+  setButtonText(text) {
+    let submitButton = this.shadowRoot.querySelector('#app-form-submit-btn');
+    submitButton.textContent = text;
+  }
+  addDatePicker(params) {
+    let inputs = this.#getInputs();
+    let id = params.id ? params.id : AppForm.normalizeLabel(params);
+    let label = AppForm.createInputLabel(params.label || params);
+    let input = document.createElement('input');
+    label.setAttribute('for', id);
+    input.setAttribute('type', 'date');
+    input.setAttribute('id', id);
+    input.setAttribute('name', id);
+    label.appendChild(input);
+    inputs.appendChild(label);
   }
   addRadioInput(params) {
     let inputs = this.#getInputs();
@@ -224,8 +271,13 @@ export default class AppForm extends HTMLElement {
   addTextInput(params) {
     let inputs = this.#getInputs();
     try {
-      inputs.append(AppForm.createTextInput(params.id, params.label));
+      inputs.append(AppForm.createTextInput(
+        params.id,
+        params.label,
+        { required: params.required }
+      ));
     } catch(e) {
+      console.log(e);
       throw new Error('App Form Error: unable to create text input', { cause: e });
     }
   }
