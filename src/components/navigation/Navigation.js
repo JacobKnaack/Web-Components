@@ -13,7 +13,7 @@ export default class AppNavigation extends HTMLElement {
         }
 
         :host nav {
-          background-color: #333333;
+          background-color: #1D438A;
           overflow: hidden;
           border-radius: 5px;
         }
@@ -30,6 +30,9 @@ export default class AppNavigation extends HTMLElement {
         :host nav a:hover {
           background-color: #555555;
         }
+        :host nav a.active-location {
+          border-bottom: thin solid red;
+        }
 
         @media screen and (max-width: 600px) {
           :host nav {
@@ -42,6 +45,16 @@ export default class AppNavigation extends HTMLElement {
 
       <nav id="app-nav-container"></nav>
     `;
+  }
+  connectedCallback() {
+    let children = Array.from(this.#getElement().children);
+    for (let child in children) {
+      let url = children[child].href;
+      let withoutOrigin = new URL(url).pathname + new URL(url).search + new URL(url).hash;
+      if (location.pathname === withoutOrigin) {
+        children[child].classList.add('active-location');
+      }
+    }
   }
   #getElement() {
     return this.shadowRoot.querySelector('#app-nav-container');

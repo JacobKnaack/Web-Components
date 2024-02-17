@@ -11,12 +11,13 @@ export default class AppForm extends HTMLElement {
           background-color: #ffffff;
           display: inline-block;
           min-width: 300px;
+          border-radius: 5px;
         }
 
         :host form {
           max-width: 900px;
           padding: 8px;
-          border-radius: 8px;
+          border-radius: 5px;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
           font-family: 'Arial', sans-serif;
           display: flex;
@@ -55,14 +56,14 @@ export default class AppForm extends HTMLElement {
         }
 
         :host button[type="submit"] {
-          background-color: #4caf50;
+          background-color: #003B4A;
           width: 100px;
           color: #ffffff;
           cursor: pointer;
         }
 
         :host button[type="submit"]:hover {
-          background-color: #45a049;
+          background-color: #00BFB2;
         }
         :host label {
           display: block;

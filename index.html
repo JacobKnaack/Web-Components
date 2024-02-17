@@ -6,24 +6,32 @@
   <title>JSDOM Web Components</title>
   <script type="module" src="./src/index.js"></script>
   <style>
+    html {
+      background-color: #ebebeb;
+      color: #003B4A;
+    }
     header {
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100vw;
+      margin: 0;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>JS DOM Web Components</h1>
-    <p>Web Components native to the JS Document Object Model API.</p>
+    <p>Web Components native to the JavaScript Document Object Model API.</p>
     <section id="nav"></section>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         let nav = document.createElement('app-nav');
+        nav.addItem('Home', './');
         nav.addItem('Forms', './src/components/form');
         nav.addItem('Navigation', './src/components/navigation');
         nav.addItem('Tables', './src/components/table');
+        nav.addItem('Source Code', 'https://github.com/JacobKnaack/Web-Components');
         nav.render(document.querySelector('#nav'));
       });
     </script>

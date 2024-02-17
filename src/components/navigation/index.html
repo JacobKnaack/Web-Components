@@ -11,10 +11,10 @@
     window.addEventListener('DOMContentLoaded', () => {
       let header = document.getElementById('header');
       let navigation = document.createElement('app-nav');
-      header.append(navigation);
-      navigation.addItem('test link 1', 'http://test1.url');
-      navigation.addItem('Page 2', './link.html');
-      navigation.addItem('LinkToGoogle', 'https://google.com');
+      navigation.addItem('Home', '/');
+      navigation.addItem('Active Link', '/src/components/navigation/');
+      navigation.addItem('Forms', '/src/components/form/');
+      navigation.render(header);
     });
   </script>
 </body>

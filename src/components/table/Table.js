@@ -10,6 +10,7 @@ export default class AppTable extends HTMLElement {
         :host {
           display: inline-block;
           font-family: sans-serif;
+          border-radius: 5px;
         }
 
         :host table {
@@ -20,20 +21,31 @@ export default class AppTable extends HTMLElement {
         
         :host table thead {
           border-radius: 5px;
-          background-color: #009879;
+          background-color: #1D438A;
         }
 
         :host table thead tr {
-          border-radius: 5px;
+          border-radius: 5px 5px 0 0;
           color: #fefefe;
           text-align: left;
         }
 
+        :host table thead tr th:first-child {
+          border-radius: 5px 0 0 0;
+        }
+        :host table thead tr th:last-child {
+          border-radius: 0 5px 0 0;
+        }
+        :host table td {
+          border-radius: 5px;
+        }
         :host table th, :host table td {
           padding: 12px 15px;
         }
 
-        :host td:nth-of-type(even) { background: #F2F2F2; }
+        :host td:nth-of-type(even) {
+          background: #F2F2F2;
+        }
       </style>
 
       <table id="app-table">

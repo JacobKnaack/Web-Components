@@ -17,15 +17,15 @@ test('Should render navigation list with links', async ({ page }) => {
   await page.goto(`http://localhost:8080`);
   await expect(await page.getByText(/Navigation Test/)).toBeVisible();
 
-  await expect(await page.getByRole('link', { name: 'test link 1' })).toBeVisible();
-  await expect(await page.getByRole('link', { name: 'Page 2' })).toBeVisible();
-  await expect(await page.getByRole('link', { name: 'LinkToGoogle' })).toBeVisible();
+  await expect(await page.getByRole('link', { name: 'Home' })).toBeVisible();
+  await expect(await page.getByRole('link', { name: 'Active Link' })).toBeVisible();
+  await expect(await page.getByRole('link', { name: 'Forms' })).toBeVisible();
 });
 
 test('Should navigate on click', async ({ page }) => {
   await page.goto(`http://localhost:8080`);
   
-  await page.getByRole('link', {name: 'LinkToGoogle' }).click();
+  await page.getByRole('link', {name: 'Active Link' }).click();
   let pageUrl = await page.url();
-  await expect(pageUrl.includes('google')).toBeTruthy();
+  await expect(pageUrl.includes('navigation')).toBeTruthy();
 });
