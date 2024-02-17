@@ -1,6 +1,6 @@
 {
   "name": "jsdom-web-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Isomorphic Web Components for the DOM API.",
   "main": "dist/bundle.js",
   "scripts": {
