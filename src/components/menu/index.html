@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Test</title>
+  <script type="module" src="./Menu.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Menu Test</h1>
+  </header>
+  <aside id="menu"></aside>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let menu = document.createElement('app-menu');
+      menu.addItem('Item 1', () => alert('Item 1!'));
+      menu.addItem('Item 2', () => alert('Item 2!'));
+      menu.render(document.querySelector('#menu'));
+    })
+  </script>
+</body>
+</html>

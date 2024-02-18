@@ -17,6 +17,18 @@
       width: 100vw;
       margin: 0;
     }
+    #gallery {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    #gallery h2 {
+      width: 100%;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -37,9 +49,9 @@
     </script>
   </header>
   <main>
-    <h2>Gallery </h2>
-    <section>
-      <div>
+    <section id="gallery">
+      <h2>Gallery </h2>
+      <div class="gallery-item">
         <p>Forms</p>
         <section id="form"></section>
         <script>
@@ -53,7 +65,7 @@
           });
         </script>
       </div>
-      <div>
+      <div class="gallery-item">
         <p>Tables</p>
         <section id="table"></section>
         <script>

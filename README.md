@@ -1,4 +1,4 @@
-# JS-DOM Web Components
+# JSDOM Web Components
 
 Native Isomorphic Web Components built on top of the JavaScript Document Object Model. Extends existing HTML DOM Elements.
 
@@ -15,7 +15,7 @@ $npm install jsdom-web-components
 * Use a CDN to get static content
 
 ```html
-<script src="https://unpkg.com/jsdom-web-components@1.0.0/dist/bundle.js"></script>
+<script src="https://unpkg.com/jsdom-web-components@1.0.2/dist/bundle.js"></script>
 ```
 
 ## Usage
