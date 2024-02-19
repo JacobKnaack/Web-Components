@@ -16,45 +16,50 @@ export default class AppMenu extends HTMLElement {
           background-color: #ffffff;
         }
         :host #app-menu-list {
-          padding: 0 8px;
+          padding: 0;
           display: flex;
           justify-content: center;
           align-items: center;
         }
         :host #app-menu-list.vertical {
+          margin: 8px 0;
           min-width: 200px;
           flex-direction: column;
         }
         :host #app-menu-list.horizontal {
+          margin: 2px 2px;
           min-width: 300px;
           flex-direction: row;
         }
         :host .app-menu-list-button {
           background: none;
           border: none;
+          border-radius: 5px;
           font: inherit;
           cursor: pointer;
           width: 100%;
+          height: 100%;
+          padding: 0 8px;
         }
         :host #app-menu-list.vertical .app-menu-list-item {
           width: 85%;
         }
         :host #app-menu-list.horizontal .app-menu-list-item {
-          width: 100px;
+          min-width: 150px;
           text-align: center;
         }
         :host .app-menu-list-item {
           list-style: none;
           border-radius: 5px;
-          height: 20px;
+          width: 100%;
+          height: 30px;
           line-height: 20px;
           font-size: 1em;
           text-size-adjust: 100%;
           -webkit-text-size-adjust: 100%;
           margin: 4px 0;
-          padding: 8px 12px;
         }
-        :host .app-menu-list-item.active-list-item {
+        :host .app-menu-list-button.active-list-item {
           background-color: darkgrey;
         }
         :host .app-menu-list-item:hover {
@@ -91,10 +96,11 @@ export default class AppMenu extends HTMLElement {
     list.addEventListener('click', (e) => {
       let itemClicked = e.target;
       listItems.forEach(item => {
-        if (item === itemClicked) {
-          item.classList.add('active-list-item');
+        let button = item.querySelector('button');
+        if (button === itemClicked) {
+          button.classList.add('active-list-item');
         } else {
-          item.classList.remove('active-list-item');
+          button.classList.remove('active-list-item');
         }
       });
     });
