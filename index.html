@@ -43,6 +43,7 @@
         nav.addItem('Forms', './src/components/form');
         nav.addItem('Navigation', './src/components/navigation');
         nav.addItem('Tables', './src/components/table');
+        nav.addItem('Menus', './src/components/menu');
         nav.addItem('Source Code', 'https://github.com/JacobKnaack/Web-Components');
         nav.render(document.querySelector('#nav'));
       });
@@ -76,6 +77,20 @@
             table.addRow('Jacob', '(111)-222-3333');
             table.addRow('Thomas', '(111)-222-3333');
             table.render(document.querySelector('#table'));
+          });
+        </script>
+      </div>
+      <div class="gallery-item">
+        <p>Menus</p>
+        <section id="menu"></section>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            let menu = document.createElement('app-menu');
+            menu.addItem('Item 1');
+            menu.addItem('Item 2');
+            menu.addItem('Item 3');
+            menu.addItem('Item 4');
+            menu.render(document.querySelector('#menu'));
           });
         </script>
       </div>
