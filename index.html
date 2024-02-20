@@ -44,6 +44,7 @@
         nav.addItem('Navigation', './src/components/navigation');
         nav.addItem('Tables', './src/components/table');
         nav.addItem('Menus', './src/components/menu');
+        nav.addItem('Carousel', './src/components/carousel');
         nav.addItem('Source Code', 'https://github.com/JacobKnaack/Web-Components');
         nav.render(document.querySelector('#nav'));
       });
@@ -74,8 +75,10 @@
             let table = document.createElement('app-table');
             table.addColumn('Names');
             table.addColumn('Phone Numbers');
-            table.addRow('Jacob', '(111)-222-3333');
-            table.addRow('Thomas', '(111)-222-3333');
+            table.addColumn('Email');
+            table.addRow('Jacob', '(111)-222-3333', 'jacob@email.com');
+            table.addRow('Thomas', '(111)-222-3333', 'thomas@email.com');
+            table.addRow('Robert', '(111)-222-3333', 'bob@email.com');
             table.render(document.querySelector('#table'));
           });
         </script>
