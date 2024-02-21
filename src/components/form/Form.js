@@ -1,10 +1,11 @@
 'use strict';
 
-export default class AppForm extends HTMLElement {
+import AppComponent from '../../lib/AppComponent/index.js';
+
+export default class AppForm extends AppComponent {
   constructor() {
     super();
     this.callback = null;
-    this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
       <style id="app-form-styles">
         :host {
@@ -287,13 +288,6 @@ export default class AppForm extends HTMLElement {
     let styles = container.getElementsByTagName('style')[0] || document.createElement('style');
     styles.innerText += `:host form { background-color: ${colorValue};}`
     container.append(styles);
-  }
-  render(element) {
-    if (element) {
-      element.append(this);
-    } else {
-      document.currentScript.insertAdjacentElement('afterend', this);
-    }
   }
 }
 

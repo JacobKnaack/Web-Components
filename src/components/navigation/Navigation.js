@@ -1,9 +1,10 @@
 'use strict';
 
-export default class AppNavigation extends HTMLElement {
+import AppComponent from '../../lib/AppComponent/index.js';
+
+export default class AppNavigation extends AppComponent {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
       <style id="app-nav-styles">
         :host {
@@ -65,13 +66,6 @@ export default class AppNavigation extends HTMLElement {
     anchor.href = url;
     anchor.textContent = label;
     container.appendChild(anchor);
-  }
-  render(element) {
-    if (element) {
-      element.append(this);
-    } else {
-      document.currentScript.insertAdjacentElement('afterend', this);
-    }
   }
 }
 

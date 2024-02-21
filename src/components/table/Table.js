@@ -1,10 +1,11 @@
 'use strict';
 
-export default class AppTable extends HTMLElement {
+import AppComponent from '../../lib/AppComponent/index.js';
+
+export default class AppTable extends AppComponent {
   constructor() {
     super();
     this.columns = [];
-    this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
       <style>
         :host {
@@ -95,13 +96,6 @@ export default class AppTable extends HTMLElement {
 
     head.innerHTML=null;
     head.appendChild(headRow);
-  }
-  render(element) {
-    if (element) {
-      element.append(this);
-    } else {
-      document.currentScript.insertAdjacentElement('afterend', this);
-    }
   }
 }
 

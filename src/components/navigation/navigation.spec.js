@@ -3,7 +3,6 @@ import liveServer from 'live-server';
 
 test.beforeAll(async () => {
   const params = {
-    root: 'src/components/navigation',
     file: 'index.html',
     open: 'false',
   }
@@ -14,7 +13,7 @@ test.afterAll(async () => {
 });
 
 test('Should render navigation list with links', async ({ page }) => {
-  await page.goto(`http://localhost:8080`);
+  await page.goto(`http://localhost:8080/src/components/navigation`);
   await expect(await page.getByText(/Navigation Test/)).toBeVisible();
 
   await expect(await page.getByRole('link', { name: 'Home' })).toBeVisible();
@@ -23,7 +22,7 @@ test('Should render navigation list with links', async ({ page }) => {
 });
 
 test('Should navigate on click', async ({ page }) => {
-  await page.goto(`http://localhost:8080`);
+  await page.goto(`http://localhost:8080/src/components/navigation`);
   
   await page.getByRole('link', {name: 'Active Link' }).click();
   let pageUrl = await page.url();

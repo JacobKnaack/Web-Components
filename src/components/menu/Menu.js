@@ -1,9 +1,10 @@
 'use strict';
 
-export default class AppMenu extends HTMLElement {
+import AppComponent from '../../lib/AppComponent/index.js';
+
+export default class AppMenu extends AppComponent {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
       <style id="app-menu-styles">
         :host {
@@ -137,13 +138,6 @@ export default class AppMenu extends HTMLElement {
       button.addEventListener('click', onClick);
     }
     items.appendChild(listItem);
-  }
-  render(element) {
-    if (element) {
-      element.append(this);
-    } else {
-      document.currentScript.insertAdjacentElement('afterend', this);
-    }
   }
 }
 
