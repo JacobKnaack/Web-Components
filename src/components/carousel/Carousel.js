@@ -13,6 +13,7 @@ export default class AppCarousel extends AppComponent {
         }
         :host #app-carousel-container.hero {
           height: 85vh;
+          max-height: 800px;
         }
         :host #app-carousel-items {
           width: 100%;
@@ -52,12 +53,31 @@ export default class AppCarousel extends AppComponent {
           border-bottom: 20px solid transparent;
           border-left: 20px solid #000;
         }
+        :host .app-carousel-item {
+          position: relative;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+        }
+        :host .app-carousel-item .cta {
+          position: absolute;
+          bottom: 20%;
+          z-index: 10000;
+        }
         :host .app-carousel-item figcaption {
           position: absolute;
-          bottom: 50%;
-          text-align: center;
-          width: 100%;
           display: inline-block;
+          width: calc(100% - 16px);
+          min-height: 20%;
+          padding: 8px;
+          bottom: 0;
+          text-align: center;
+          background: rgba(220,220,220,0.5);
+          font-family: Ariel, sans-serif;
+          font-size: 1.25em;
         }
         :host .app-carousel-item.hidden {
           display: none;
@@ -112,8 +132,8 @@ export default class AppCarousel extends AppComponent {
       <section id="app-carousel-container" class="hero">
         <div id="app-carousel-items" class="right"></div>
         <div id="app-carousel-controls">
-          <button id="prev-button"><div class="arrow-left"></div></button>
-          <button id="next-button"><div class="arrow-right"></div></button>
+          <button id="prev-button"><div data-testid="prev-arr" class="arrow-left"></div></button>
+          <button id="next-button"><div data-testid="next-arr" class="arrow-right"></div></button>
         </div>
       </section>
     `;
@@ -126,6 +146,17 @@ export default class AppCarousel extends AppComponent {
       return element.getAttribute(attribute);
     } else {
       return null
+    }
+  }
+  static #createCallToAction(text, callback) {
+    try {
+      let button = document.createElement('button');
+      button.textContent = text;
+      button.classList.add('cta');
+      button.addEventListener('click', callback);
+      return button;
+    } catch (e) {
+      throw new Error('Unable to create call to action button', { cause: e });
     }
   }
   static #createItem() {
@@ -142,9 +173,7 @@ export default class AppCarousel extends AppComponent {
     next.classList.add('active');
   }
   connectedCallback() {
-    if (this.rotateInterval !== 0) {
-      this.rotateInterval = setInterval(this.#rotateLeft, 6000);
-    }
+    this.#handleRotation(this.#rotateRight);
     this.shadowRoot.querySelector('#prev-button').addEventListener('click', () => {
       this.#setRotation('left');
       this.#rotateRight();
@@ -157,23 +186,30 @@ export default class AppCarousel extends AppComponent {
   disconnectedCallback() {
     clearInterval(this.rotateInterval);
   }
+  #handleRotation(handler, int) {
+    if (parseInt(int)) {
+      this.rotateInterval = setInterval(handler, int);
+    } else if (this.rotateInterval !== 0) {
+      this.rotateInterval = setInterval(handler, 6000);
+    }
+  }
   #setRotation(direction = 'right') {
     let items = this.#getItems();
     clearInterval(this.rotateInterval);
     switch(direction) {
       case 'left':
-        this.rotateInterval = setInterval(this.#rotateLeft, 6000);
+        this.#handleRotation(this.#rotateLeft);
         items.classList.remove('right');
         items.classList.add('left');
         break;
       case 'right':
       default:
-        this.rotateInterval = setInterval(this.#rotateRight, 6000);
+        this.#handleRotation(this.#rotateRight);
         items.classList.remove('left');
         items.classList.add('right');
     }
   }
-  #rotateRight = () => {
+  #rotateLeft = () => {
     let items = Array.from(this.#getItems().children);
     if (items.length > 0) {
       for (let i = 0; i < items.length; i++) {
@@ -189,7 +225,7 @@ export default class AppCarousel extends AppComponent {
       }
     }
   }
-  #rotateLeft = () => {
+  #rotateRight = () => {
     let items = Array.from(this.#getItems().children);
     if (items.length) {
       for (let i = items.length - 1; i >= 0; i--) {
@@ -205,10 +241,26 @@ export default class AppCarousel extends AppComponent {
       }
     }
   }
-  #handleNewItem(callback = null) {
+  #handleNewItem(params = null) {
     let carousel = this.#getItems();
     let items = Array.from(carousel.children);
     let item = AppCarousel.#createItem();
+    if (params) {
+      let { onClick, label } = params;
+      let button = null;
+      if (typeof onClick === 'function' && label) {
+        item.addEventListener('click', onClick);
+        button = AppCarousel.#createCallToAction(label, onClick);
+      } else if (typeof onClick === 'function') {
+        item.addEventListener('click', onClick);
+        button = AppCarousel.#createCallToAction('Click Here', onClick);
+      } else {
+        item.addEventListener('click', params);
+        button = AppCarousel.#createCallToAction('Click Here', params);
+      }
+      console.log(item, button);
+      item.append(button);
+    }
     if (!items.length) {
       item.classList.add('active');
     } else {
@@ -224,8 +276,8 @@ export default class AppCarousel extends AppComponent {
   #getContainer() {
     return this.shadowRoot.querySelector('#app-carousel-container');
   }
-  rotationInt(duration) {
-    let currentDirection = this.#getItems.classList.contains('right') ? 'right': 'left';
+  setInterval(duration) {
+    let currentDirection = this.#getItems().classList.contains('right') ? 'right': 'left';
     if (this.rotateInterval) clearInterval(this.rotateInterval);
     if (duration > 0) {
       this.rotateInterval = setInterval(
@@ -265,7 +317,7 @@ export default class AppCarousel extends AppComponent {
   /**
    * 
    * @param {HTMLElement | String} param 
-   * @param {Function} onClick 
+   * @param {Function | { onClick: Function, label: String}} onClick 
    */
   addItem(param, onClick) {
     try {
@@ -273,7 +325,7 @@ export default class AppCarousel extends AppComponent {
       if (param instanceof HTMLElement) {
         item.append(param);
       } else {
-        item.innerHTML = param;
+        item.innerHTML += param;
         let description = AppCarousel.#parseAttribute(param, 'data-caption');
         if (description) {
           let caption = document.createElement('figcaption');
