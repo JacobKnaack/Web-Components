@@ -1,6 +1,6 @@
 'use strict';
 
-import AppComponent from '../../lib/component/index.js';
+import AppComponent from '../../lib/AppComponent/index.js';
 
 export default class AppCarousel extends AppComponent {
   constructor() {
@@ -10,10 +10,10 @@ export default class AppCarousel extends AppComponent {
       <style id="app-carousel-styles">
         :host #app-carousel-container {
           position: relative;
+          height: 100%;
         }
         :host #app-carousel-container.hero {
-          height: 85vh;
-          max-height: 800px;
+          height: 80vh;
         }
         :host #app-carousel-items {
           width: 100%;
@@ -35,6 +35,7 @@ export default class AppCarousel extends AppComponent {
         }
         :host #app-carousel-controls #prev-button,
         :host #app-carousel-controls #next-button {
+          z-index: 10001;
           top: 0;
           cursor: pointer;
           margin: 0 50px;
@@ -64,7 +65,7 @@ export default class AppCarousel extends AppComponent {
         }
         :host .app-carousel-item .cta {
           position: absolute;
-          bottom: 20%;
+          bottom: 40%;
           z-index: 10000;
         }
         :host .app-carousel-item figcaption {
@@ -78,6 +79,7 @@ export default class AppCarousel extends AppComponent {
           background: rgba(220,220,220,0.5);
           font-family: Ariel, sans-serif;
           font-size: 1.25em;
+          text-shadow: 1px 1px 1px #fff;
         }
         :host .app-carousel-item.hidden {
           display: none;
@@ -153,7 +155,7 @@ export default class AppCarousel extends AppComponent {
       let button = document.createElement('button');
       button.textContent = text;
       button.classList.add('cta');
-      button.addEventListener('click', callback);
+      if (callback) button.addEventListener('click', callback);
       return button;
     } catch (e) {
       throw new Error('Unable to create call to action button', { cause: e });
@@ -250,15 +252,14 @@ export default class AppCarousel extends AppComponent {
       let button = null;
       if (typeof onClick === 'function' && label) {
         item.addEventListener('click', onClick);
-        button = AppCarousel.#createCallToAction(label, onClick);
+        button = AppCarousel.#createCallToAction(label);
       } else if (typeof onClick === 'function') {
         item.addEventListener('click', onClick);
-        button = AppCarousel.#createCallToAction('Click Here', onClick);
+        button = AppCarousel.#createCallToAction('Click Here');
       } else {
         item.addEventListener('click', params);
-        button = AppCarousel.#createCallToAction('Click Here', params);
+        button = AppCarousel.#createCallToAction('Click Here');
       }
-      console.log(item, button);
       item.append(button);
     }
     if (!items.length) {
@@ -276,17 +277,21 @@ export default class AppCarousel extends AppComponent {
   #getContainer() {
     return this.shadowRoot.querySelector('#app-carousel-container');
   }
+  /**
+   * 
+   * @param {Number<Int>} duration 
+   */
   setInterval(duration) {
     let currentDirection = this.#getItems().classList.contains('right') ? 'right': 'left';
     if (this.rotateInterval) clearInterval(this.rotateInterval);
-    if (duration > 0) {
+    if (parseInt(duration) > 0) {
       this.rotateInterval = setInterval(
         currentDirection === 'right' 
           ? this.#rotateRight
           : this.#rotateLeft
         , duration);
     } else {
-      this.rotateInterval = 0
+      this.rotateInterval = 0;
     }
   }
   /**
@@ -325,8 +330,8 @@ export default class AppCarousel extends AppComponent {
       if (param instanceof HTMLElement) {
         item.append(param);
       } else {
-        item.innerHTML += param;
-        let description = AppCarousel.#parseAttribute(param, 'data-caption');
+        item.innerHTML += param.item || param;
+        let description = param.caption;
         if (description) {
           let caption = document.createElement('figcaption');
           caption.textContent = description;
