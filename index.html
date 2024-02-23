@@ -45,6 +45,7 @@
         nav.addItem('Tables', './src/components/table');
         nav.addItem('Menus', './src/components/menu');
         nav.addItem('Carousel', './src/components/carousel');
+        nav.addItem('Lists', './src/components/list');
         nav.addItem('Source Code', 'https://github.com/JacobKnaack/Web-Components');
         nav.render(document.querySelector('#nav'));
       });
@@ -73,8 +74,8 @@
         <script>
           document.addEventListener('DOMContentLoaded', () => {
             let table = document.createElement('app-table');
-            table.addColumn('Names');
-            table.addColumn('Phone Numbers');
+            table.addColumn('Name');
+            table.addColumn('Phone Number');
             table.addColumn('Email');
             table.addRow('Jacob', '(111)-222-3333', 'jacob@email.com');
             table.addRow('Thomas', '(111)-222-3333', 'thomas@email.com');
@@ -94,6 +95,21 @@
             menu.addItem('Item 3');
             menu.addItem('Item 4');
             menu.render(document.querySelector('#menu'));
+          });
+        </script>
+      </div>
+      <div class="gallery-item">
+        <p>Lists</p>
+        <section id="list"></section>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            let list = document.createElement('app-list');
+            list.setTitle('Check out this List!');
+            list.addText('Adding lists is easy');
+            list.addText({text: 'supports different content types, easy to customize.', title: 'Items support titles!'});
+            list.addItem('<img src="https://place-hold.it/100x100"><p>You can even add custom elements!</p>');
+            list.addItem('<h2 style="color: red;">Even your own CSS!</h2>');
+            list.render(document.querySelector('#list'));
           });
         </script>
       </div>

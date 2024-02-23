@@ -140,16 +140,6 @@ export default class AppCarousel extends AppComponent {
       </section>
     `;
   }
-  static #parseAttribute(string, attribute) {
-    let parser = new DOMParser();
-    let doc = parser.parseFromString(string, 'text/html');
-    let element = doc.querySelector('*');
-    if (element && element.hasAttribute(attribute)) {
-      return element.getAttribute(attribute);
-    } else {
-      return null
-    }
-  }
   static #createCallToAction(text, callback) {
     try {
       let button = document.createElement('button');

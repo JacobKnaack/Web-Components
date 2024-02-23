@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App List</title>
+  <script type="module" src="./List.js"></script>
+</head>
+<body>
+  <header>
+    <h1>List Test</h1>
+  </header>
+  <main id="test-container"></main>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let horizontal = document.createElement('app-list');
+      horizontal.setType('horizontal');
+      horizontal.setTitle('A Horizontal List');
+      horizontal.addText('List Item 1');
+      horizontal.addText('List Item 2');
+      horizontal.addText('List Item 3');
+      horizontal.render(document.querySelector('#test-container'));
+
+      let grid = document.createElement('app-list');
+      grid.setType('grid');
+      grid.setTitle('A Grid List');
+      grid.addText({ title: 'Item 1 title', text: 'item 1 text' });
+      grid.addText({ title: 'Item 2 title', text: 'item 2 text' });
+      grid.addText({ title: 'Item 3 title', text: 'item 3 text' });
+      grid.addText({ title: 'Item 4 title', text: 'item 4 text' });
+      grid.addText({ title: 'Item 5 title', text: 'item 5 text' });
+      grid.addText({ title: 'Item 6 title', text: 'item 6 text' });
+      grid.addText({ title: 'Item 7 title', text: 'item 7 text' });
+      grid.addText({ title: 'Item 8 title', text: 'item 8 text' });
+      grid.addText({ title: 'Item 9 title', text: 'item 9 text' });
+      grid.addText({ title: 'Item 10 title', text: 'item 10 text' });
+      grid.render(document.querySelector('#test-container'));
+      console.log(grid);
+    });
+  </script>
+</body>
+</html>
