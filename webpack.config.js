@@ -7,4 +7,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
+  resolve: {
+    alias: {
+      "isomorphic-dompurify": path.join(__dirname, 'node_modules/isomorphic-dompurify'),
+    }
+  }
 };

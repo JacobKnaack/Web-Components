@@ -1,19 +1,7 @@
 import { test, expect } from '@playwright/test';
-import liveServer from 'live-server';
-
-test.beforeAll(async () => {
-  const params = {
-    file: 'index.html',
-    open: 'false',
-  }
-  liveServer.start(params);
-});
-test.afterAll(async () => {
-  liveServer.shutdown();
-});
 
 test('Should render navigation list with links', async ({ page }) => {
-  await page.goto(`http://localhost:8080/src/components/navigation`);
+  await page.goto(`http://localhost:8080/navigation.html`);
   await expect(await page.getByText(/Navigation Test/)).toBeVisible();
 
   await expect(await page.getByRole('link', { name: 'Home' })).toBeVisible();
@@ -22,7 +10,7 @@ test('Should render navigation list with links', async ({ page }) => {
 });
 
 test('Should navigate on click', async ({ page }) => {
-  await page.goto(`http://localhost:8080/src/components/navigation`);
+  await page.goto(`http://localhost:8080/navigation.html`);
   
   await page.getByRole('link', {name: 'Active Link' }).click();
   let pageUrl = await page.url();

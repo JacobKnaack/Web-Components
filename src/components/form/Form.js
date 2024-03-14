@@ -26,13 +26,23 @@ export default class AppForm extends AppComponent {
           justify-content: center;
           align-items: center;
         }
+        :host form.hide {
+          background: none;
+          box-shadow: none;
+          border: none
+        }
 
         :host fieldset {
           border-radius: 8px;
           border: thin solid lightgrey;
-          padding: 0 20px 20px 20px;
+          padding: 0 20px 4px 20px;
           margin-bottom: 12px;
           background-color: #ffffff;
+        }
+        :host fieldset.hide {
+          background: none;
+          box-shadow: none;
+          border: none;
         }
 
         :host #form-legend {
@@ -49,7 +59,7 @@ export default class AppForm extends AppComponent {
         button {
           width: 100%;
           padding: 8px;
-          margin-bottom: 16px;
+          margin-bottom: 8px;
           border: 1px solid #cccccc;
           border-radius: 4px;
           box-sizing: border-box;
@@ -69,7 +79,8 @@ export default class AppForm extends AppComponent {
         :host label {
           display: block;
           color: #333333;
-          font-weight: lighter; 
+          font-weight: lighter;
+          margin: 8px 0;
         }
         :host .label-text {
           padding-left: 4px;
@@ -288,6 +299,23 @@ export default class AppForm extends AppComponent {
     let styles = container.getElementsByTagName('style')[0] || document.createElement('style');
     styles.innerText += `:host form { background-color: ${colorValue};}`
     container.append(styles);
+  }
+  setBackground(backgroundType) {
+    let container = this.#getElement();
+    let fieldset = this.#getInputs();
+    switch(backgroundType) {
+      case 'none':
+        container.classList.add('hide');
+        fieldset.classList.remove('hide');
+        break;
+      case 'transparent':
+        container.classList.add('hide');
+        fieldset.classList.add('hide');
+        break;
+      default:
+        container.classList.add(backgroundType);
+        fieldset.classList.add(backgroundType);
+    }
   }
 }
 

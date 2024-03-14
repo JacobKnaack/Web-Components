@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JSDOM Web Components</title>
-  <script type="module" src="./src/index.js"></script>
+  <script type="module" src="./bundle.js"></script>
   <style>
     html {
       background-color: #ebebeb;
@@ -40,12 +40,12 @@
       document.addEventListener('DOMContentLoaded', () => {
         let nav = document.createElement('app-nav');
         nav.addItem('Home', './');
-        nav.addItem('Forms', './src/components/form');
-        nav.addItem('Navigation', './src/components/navigation');
-        nav.addItem('Tables', './src/components/table');
-        nav.addItem('Menus', './src/components/menu');
-        nav.addItem('Carousel', './src/components/carousel');
-        nav.addItem('Lists', './src/components/list');
+        nav.addItem('Forms', '/form.html');
+        nav.addItem('Navigation', 'navigation.html');
+        nav.addItem('Tables', '/table.html');
+        nav.addItem('Menus', '/menu.html');
+        nav.addItem('Carousel', '/carousel.html');
+        nav.addItem('Lists', '/list.html');
         nav.addItem('Source Code', 'https://github.com/JacobKnaack/Web-Components');
         nav.render(document.querySelector('#nav'));
       });
