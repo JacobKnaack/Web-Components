@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Test</title>
+  <script type="module" src="./bundle.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Menu Test</h1>
+  </header>
+  <aside id="menu1"></aside>
+  <section id="menu2"></section>
+  <main id="test-container"></main>
+  <script>
+    const printOutput = (value) => {
+      document.querySelector('#test-container').append(value);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      let menu1 = document.createElement('app-menu');
+      menu1.addItem('Item 1', () => printOutput('Item 1!'));
+      menu1.addItem('Item 2', () => printOutput('Item 2!'));
+      menu1.addItem('Item 3', () => printOutput('Item 3!'));
+      menu1.addItem('Item 4', () => printOutput('Item 4!'));
+      menu1.render(document.querySelector('#menu1'));
+
+      let menu2 = document.createElement('app-menu');
+      menu2.setType('horizontal');
+      menu2.addItem('Item 5', () => printOutput('Item 5!'));
+      menu2.addItem('Item 6', () => printOutput('Item 6!'));
+      menu2.addItem('Item 7', () => printOutput('Item 7!'));
+      menu2.addItem('Item 8', () => printOutput('Item 8!'));
+      menu2.render(document.querySelector('#menu2'));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Carousel</title>
+  <script type="module" src="./bundle.js"></script>
+</head>
+<body>
+  <header id="header-container">
+    <h1>Carousel Test</h1>
+  </header>
+  <main>
+    <section id="output"></section>
+  </main>
+  <script>
+    const printOutput = (value) => () => {
+      document.getElementById('output').append(`item ${value} has been clicked`);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      let carousel = document.createElement('app-carousel');
+      carousel.setInterval(0);
+      carousel.addItem(`<img src="https://place-hold.it/300x500">`, { onClick: printOutput(1) });
+      carousel.addImage({url: 'https://place-hold.it/800x200', caption: 'Test caption text 1'}, { onClick: printOutput(2), label: 'Test Label'});
+      carousel.addItem({item: `<img src="https://place-hold.it/500x500" alt="test description of an image">`, caption: 'Test caption text 2'});
+      carousel.addImage('https://place-hold.it/200x200');
+      carousel.render(document.querySelector('#header-container'));
+    });
+  </script>
+</body>
+</html>

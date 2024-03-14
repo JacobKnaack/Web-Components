@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSDOM Web Components</title>
+  <script type="module" src="./bundle.js"></script>
+  <style>
+    html {
+      background-color: #ebebeb;
+      color: #003B4A;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100vw;
+      margin: 0;
+    }
+    #gallery {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    #gallery h2 {
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>JS DOM Web Components</h1>
+    <p>Web Components native to the JavaScript Document Object Model API.</p>
+    <section id="nav"></section>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        let nav = document.createElement('app-nav');
+        nav.addItem('Home', './');
+        nav.addItem('Forms', '/form.html');
+        nav.addItem('Navigation', 'navigation.html');
+        nav.addItem('Tables', '/table.html');
+        nav.addItem('Menus', '/menu.html');
+        nav.addItem('Carousel', '/carousel.html');
+        nav.addItem('Lists', '/list.html');
+        nav.addItem('Source Code', 'https://github.com/JacobKnaack/Web-Components');
+        nav.render(document.querySelector('#nav'));
+      });
+    </script>
+  </header>
+  <main>
+    <section id="gallery">
+      <h2>Gallery </h2>
+      <div class="gallery-item">
+        <p>Forms</p>
+        <section id="form"></section>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            let form = document.createElement('app-form');
+            form.setLegend('Your Awesome Form');
+            form.setButtonText('Click Me!');
+            form.addTextInput({id: 'name', label: 'Enter your name'});
+            form.addDatePicker('When did you learn to drive?');
+            form.render(document.querySelector('#form'));
+          });
+        </script>
+      </div>
+      <div class="gallery-item">
+        <p>Tables</p>
+        <section id="table"></section>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            let table = document.createElement('app-table');
+            table.addColumn('Name');
+            table.addColumn('Phone Number');
+            table.addColumn('Email');
+            table.addRow('Jacob', '(111)-222-3333', 'jacob@email.com');
+            table.addRow('Thomas', '(111)-222-3333', 'thomas@email.com');
+            table.addRow('Robert', '(111)-222-3333', 'bob@email.com');
+            table.render(document.querySelector('#table'));
+          });
+        </script>
+      </div>
+      <div class="gallery-item">
+        <p>Menus</p>
+        <section id="menu"></section>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            let menu = document.createElement('app-menu');
+            menu.addItem('Item 1');
+            menu.addItem('Item 2');
+            menu.addItem('Item 3');
+            menu.addItem('Item 4');
+            menu.render(document.querySelector('#menu'));
+          });
+        </script>
+      </div>
+      <div class="gallery-item">
+        <p>Lists</p>
+        <section id="list"></section>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            let list = document.createElement('app-list');
+            list.setTitle('Check out this List!');
+            list.addText('Adding lists is easy');
+            list.addText({text: 'supports different content types, easy to customize.', title: 'Items support titles!'});
+            list.addItem('<img src="https://place-hold.it/100x100"><p>You can even add custom elements!</p>');
+            list.addItem('<h2 style="color: red;">Even your own CSS!</h2>');
+            list.render(document.querySelector('#list'));
+          });
+        </script>
+      </div>
+    </section>
+  </main>
+  <footer>
+    Built By @JacobKnaack
+  </footer>
+</body>
+</html>
