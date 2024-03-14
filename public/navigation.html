@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSDOM Navigation</title>
   <script type="module" src="./bundle.js"></script>
 </head>
 <body>
@@ -10,11 +13,20 @@
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       let header = document.getElementById('header');
-      let navigation = document.createElement('app-nav');
-      navigation.addItem('Home', '/');
-      navigation.addItem('Active Link', '/src/components/navigation/');
-      navigation.addItem('Forms', '/src/components/form/');
-      navigation.render(header);
+      let nav1 = document.createElement('app-nav');
+      nav1.addTitle('Navigation Title');
+      nav1.setBackgroundColor('pink');
+      nav1.addItem('Home', '/');
+      nav1.addItem('Active Link', '/navigation.html');
+      nav1.addItem('Forms', '/form.html');
+      
+      let nav2 = document.createElement('app-nav');
+      nav2.addItem('Link Text 1', '/');
+      nav2.addItem('Link Text 2', '/');
+      nav2.addItem('Link Text 3', '/');
+      nav2.setType('full');
+      nav1.render(header);
+      nav2.render(header);
     });
   </script>
 </body>

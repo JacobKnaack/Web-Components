@@ -122,7 +122,6 @@ export default class AppForm extends AppComponent {
       </form>
     `;
   }
-
   static normalizeLabel(text) {
     return text.replace(/\s+/g, '-').toLowerCase();
   }

@@ -1,8 +1,9 @@
 'use strict';
 
 export default class AppComponent extends HTMLElement {
-  constructor() {
+  constructor(containerName) {
     super();
+    this.name = containerName;
     this.attachShadow({ mode: 'open' });
   }
   static parseAttribute(string, attribute) {
@@ -15,6 +16,9 @@ export default class AppComponent extends HTMLElement {
       return null
     }
   }
+
+  // #getElement() {}
+  // setBackgroundColor(colorValue) {}
 
   render(element) {
     if (element) {
