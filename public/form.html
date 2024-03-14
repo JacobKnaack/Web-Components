@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type="module" src="./Form.js"></script>
+  <script type="module" src="./bundle.js"></script>
 </head>
 <body>
   <header>
@@ -23,7 +23,6 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const form = document.createElement('app-form');
-      document.body.appendChild(form);
       form.setBackgroundColor('lightblue');
       form.setLegend('Test Legend');
       form.addTextInput({ id: 'test-id-1', label: 'test label 1' });
@@ -32,6 +31,16 @@
       form.addDatePicker({ id: 'test-id-4', label: 'test label 4' });
       form.onSubmit(printOutput);
     
+      const form2 = document.createElement('app-form');
+      form2.setLegend('Simple Transparent Form');
+      form2.setBackground('transparent');
+      form2.addTextInput({ id: 'test-id-6', label: 'test label 6'});
+      form2.addTextInput({ id: 'test-id-7', label: 'test label 7' });
+      form2.setButtonText('Clickity Click');
+      form2.onSubmit(printOutput);
+
+      document.body.appendChild(form);
+      document.body.appendChild(form2);
       document.querySelector('#require-input').addEventListener('click', () => {
         form.addTextInput({ id: 'test-id-5', label: 'test label 5', required: true });
       });

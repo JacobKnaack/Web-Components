@@ -4,10 +4,11 @@
   "description": "Isomorphic Web Components for the DOM API.",
   "main": "dist/bundle.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack.main.config.js",
+    "build:static": "webpack --config webpack.vendor.config.js",
     "test": "playwright test --workers 1",
     "test:debug": "playwright test --debug",
-    "dev": "live-server"
+    "dev": "webpack serve --config webpack.main.config.js"
   },
   "author": "Jacob Knaack",
   "license": "ISC",
@@ -15,13 +16,16 @@
   "bugs": {
     "url": "https://github.com/JacobKnaack/Web-Components/issues"
   },
+  "dependencies": {
+    "isomorphic-dompurify": "^2.4.0"
+  },
   "devDependencies": {
     "@playwright/test": "^1.41.0",
-    "live-server": "^1.2.2",
     "webpack": "^5.90.1",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
   },
-  "files":[
+  "files": [
     "dist"
   ]
 }
