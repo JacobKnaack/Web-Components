@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Modal</title>
+  <script type="module" src="./bundle.js"></script>
+</head>
+
+<body>
+  <header id="header-container">
+    <h1>Modal Test</h1>
+  </header>
+  <main>
+    <button id="open-modal">Open Modal</button>
+    <section id="output"></section>
+  </main>
+  <script>
+    function printOutput() {
+      document.getElementById('output').innerHTML += '<p>Modal Click</p>'
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      let modal = document.createElement('app-modal');
+      modal.setHeading('Test modal heading text');
+      modal.setBody('Test modal body text');
+      modal.addButton('cancel', { onClick: modal.close });
+      modal.addButton('ok', { onClick: () => {
+        console.log('button click!');
+        printOutput();
+        modal.close();
+      }});
+      modal.render(document.body);
+      
+      let button = document.querySelector('#open-modal');
+      button.addEventListener('click', modal.show);
+    });
+  </script>
+</body>
+
+</html>

@@ -4,6 +4,7 @@ import Navigation from './components/navigation/Navigation.js';
 import Menu from './components/menu/Menu.js';
 import Carousel from './components/carousel/Carousel.js';
 import List from './components/list/List.js';
+import Modal from './components/modal/Modal.js';
 
 export {
   Table,
@@ -11,5 +12,6 @@ export {
   Navigation,
   Menu,
   Carousel,
-  List
+  List,
+  Modal
 }
