@@ -7,6 +7,9 @@ export default class AppModal extends AppComponent {
     super('app-modal');
     this.shadowRoot.innerHTML = `
       <style id="app-modal-styles">
+        :host {
+          font-family: Ariel, sans-serif;
+        }
         :host #app-modal-background {
           z-index: 9999;
           position: fixed;
@@ -30,14 +33,40 @@ export default class AppModal extends AppComponent {
           border: 1px solid #888;
           border-radius: 10px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* box shadow effect */
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
         :host #app-modal-container #app-modal-heading {
           margin: 0 0 4px 0;
+          
+        }
+        :host #app-modal-control {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          border: none;
+        }
+        :host #app-modal-control .app-modal-control-btn {
+          margin: 0px 4px;
+          border: 0;
+          min-width: 75px;
+          border-radius: 5px;
+          box-sizing: border-box;
+          padding: .25rem 8px;
+          color: #111827;
+          line-height: 1.25rem;
+          text-align: center;
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+          cursor: pointer;
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: manipulation;
         }
         :host #close-button {
           position: absolute;
-          top: 5%;
-          right: 5%;
+          top: 8px;
+          right: 12px;
           margin: 4px 0;
           background-color: transparent;
           color: #666666; /* Grey color */
@@ -116,6 +145,7 @@ export default class AppModal extends AppComponent {
       modalControl.setAttribute('id', 'app-modal-control');
     }
     let button = document.createElement('button');
+    button.classList.add('app-modal-control-btn');
     button.textContent = buttonText;
     button.addEventListener('click', options.onClick);
     modalControl.appendChild(button);
