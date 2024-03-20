@@ -5,6 +5,8 @@ import Menu from './components/menu/Menu.js';
 import Carousel from './components/carousel/Carousel.js';
 import List from './components/list/List.js';
 import Modal from './components/modal/Modal.js';
+import AppButton from './elements/button/AppButton.js';
+import AppHeading from './elements/heading/AppHeading.js';
 
 export {
   Table,
@@ -13,5 +15,7 @@ export {
   Menu,
   Carousel,
   List,
-  Modal
+  Modal,
+  AppButton,
+  AppHeading,
 }

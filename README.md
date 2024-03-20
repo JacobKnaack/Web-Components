@@ -20,9 +20,9 @@ $npm install jsdom-web-components
 
 ## Usage
 
-Instantiate a new component using `document.createElement()` in your HTML / JavaScript.
+Instantiate a new components using `document.createElement()` in your HTML / JavaScript.
 
-```js
+```html
 <html>
   <head>
     <title>My App</title>
@@ -36,6 +36,25 @@ Instantiate a new component using `document.createElement()` in your HTML / Java
         nav.addItem('Github', 'https://github.com');
         nav.render();
       </script>
+    </header>
+  </body>
+</html>
+```
+
+### Elements
+
+You can render individual custom elements using raw HTML in your markup.
+
+```html
+<html>
+  <head>
+    <title>My Website</title>
+    <script src="https://unpkg.com/jsdom-web-components@latest/dist/bundle.js"></script>
+  </head>
+  <body>
+    <header>
+      <app-heading>My Awesome Web Page</app-heading>
+      <app-button>Login</app-button>
     </header>
   </body>
 </html>
