@@ -4,7 +4,9 @@ import AppElement from "../../lib/element/AppElement";
 
 export default class AppButton extends AppElement {
   constructor() {
-    super('button');
+    super('button', {
+      value: AppElement.handleAttribute,
+    });
     this.shadowRoot.prepend(
       AppElement.createStyles(`#${this.element.id}`,
       `

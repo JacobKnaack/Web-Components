@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Elements</title>
   <script src="./bundle.js"></script>
+  <style>
+  </style>
 </head>
 <body>
   <header>
@@ -13,7 +15,12 @@
   <main>
     <section>
       <h2>Buttons</h2>
-      <app-button>Button Text</app-button>
+      <app-button value="test value" handler="alert">Default Button</app-button>
+      <app-button>Primary Button</app-button>
+    </section>
+    <section>
+      <h2>Inputs</h2>
+      <app-input type="text" label="input label" placeholder="placeholder value"></app-input>
     </section>
     <section>
       <h2>Headings</h2>
@@ -24,6 +31,24 @@
       <app-heading type="h4">Level 4</app-heading>
       <app-heading type="h5">Level 5</app-heading>
       <app-heading type="h6">Level 6</app-heading>
+    </section>
+    <section>
+      <h2>Images</h2>
+      <app-image src="https://place-hold.it/200x200"></app-image>
+    </section>
+    <section>
+      <h2>Surface</h2>
+      <app-surface>
+        <p>Default Surface</p>
+      </app-surface>
+    </section>
+    <section>
+      <h2>Text</h2>
+      <app-text>Some really pretty text.</app-text>
+    </section>
+    <section>
+      <h2>Links</h2>
+      <app-link href="/">Link Text</app-link>
     </section>
   </main>
 </body>

@@ -1,6 +1,6 @@
 'use strict';
 
-const elementTypes = {
+export const elementTypes = {
   button: 'button',
   text: 'p',
   heading: 'h1',
@@ -24,7 +24,15 @@ export default class AppElement extends HTMLElement {
     this.observer = new MutationObserver(mutationsList => {
       for (let mutation of mutationsList) {
         if (mutation.type === 'childList') {
-          this.updateTextContent();
+          for (let node of mutation.addedNodes) {
+            if (node instanceof HTMLElement) {
+              this.updateInnerHTML(node);
+            } else {
+              if (node.textContent && node.textContent.trim()) {
+                this.updateTextContent();
+              }
+            }
+          }
         }
       }
     });
@@ -32,13 +40,16 @@ export default class AppElement extends HTMLElement {
     // Observe changes to child nodes
     this.observer.observe(this, { childList: true });
   }
-  static setElement(elementType, replace) {
-    let newElement = document.createElement(elementType);
+  static setElement(key, type, replace) {
+    let newElement = document.createElement(type);
     if (replace.id) {
       newElement.setAttribute('id', replace.id);
     }
     replace.parentNode.replaceChild(newElement, replace);
     return newElement;
+  }
+  static handleAttribute(name, value, element) {
+    element.setAttribute(name, value);
   }
   static createStyles(selectors, css) {
     let styles = document.createElement('style');
@@ -54,9 +65,13 @@ export default class AppElement extends HTMLElement {
       }
       if (this.hasAttribute(key)) {
         let value = this.getAttribute(key);
-        this.element = this.attributeList[key](value, this.element);
+        let result = this.attributeList[key](key, value, this.element);
+        if (result) this.element = result;
       }
     }
+  }
+  updateInnerHTML(node) {
+    this.element.appendChild(node);
   }
   updateTextContent() {
     this.element.textContent = this.textContent.trim();
