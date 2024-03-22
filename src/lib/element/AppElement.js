@@ -9,6 +9,9 @@ export const elementTypes = {
   surface: 'div',
   image: 'img'
 };
+export const attributeTypes = {
+  label: ['for'],
+}
 
 export default class AppElement extends HTMLElement {
   constructor(type, attributeList) {
@@ -40,6 +43,16 @@ export default class AppElement extends HTMLElement {
     // Observe changes to child nodes
     this.observer.observe(this, { childList: true });
   }
+  static createElement(name, config = {}) {
+    let element = document.createElement(name);
+    for (let attribute in config.attributes) {
+      element.setAttribute(attribute, config.attributes[attribute]);
+    }
+    if (config.textContent) {
+      element.textContent = config.textContent;
+    }
+    return element;
+  }
   static setElement(key, type, replace) {
     let newElement = document.createElement(type);
     if (replace.id) {
@@ -47,6 +60,13 @@ export default class AppElement extends HTMLElement {
     }
     replace.parentNode.replaceChild(newElement, replace);
     return newElement;
+  }
+  static mapValueToParent(elementName, elementText, child) {
+    let element = AppElement.createElement(elementName, {
+      textContent: elementText
+    });
+    if (child) element.appendChild(child);
+    return element;
   }
   static handleAttribute(name, value, element) {
     element.setAttribute(name, value);
@@ -58,15 +78,22 @@ export default class AppElement extends HTMLElement {
     `;
     return styles;
   }
+  static combineStyles(...args) {
+    let combined = document.createElement('style');
+    for (let stylesheet of args) {
+      combined.innerHTML += stylesheet.innerHTML
+    }
+    return combined
+  }
   connectedCallback() {
     for (let key in this.attributeList) {
-      if (Array.isArray(this.attributeList)) {
-        // TODO, deal with a list of string values rather strings and functions;
-      }
       if (this.hasAttribute(key)) {
         let value = this.getAttribute(key);
         let result = this.attributeList[key](key, value, this.element);
-        if (result) this.element = result;
+        if (result) {
+          this.element = result;
+          this.shadowRoot.append(result);
+        }
       }
     }
   }

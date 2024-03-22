@@ -7,9 +7,8 @@ export default class AppButton extends AppElement {
     super('button', {
       value: AppElement.handleAttribute,
     });
-    this.shadowRoot.prepend(
-      AppElement.createStyles(`#${this.element.id}`,
-      `
+    this.shadowRoot.prepend(AppElement.combineStyles(
+      AppElement.createStyles(`#${this.element.id}`,`
         background-color: rgba(51, 51, 51, 0.05);
         border-radius: 8px;
         border-width: 0;
@@ -30,7 +29,14 @@ export default class AppButton extends AppElement {
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
-      `
+      `),
+      AppElement.createStyles(`#${this.element.id}:hover`,`
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+      `),
+      AppElement.createStyles(`#${this.element.id}:active`,`
+        background-color: rgba(51, 51, 51, 1);
+        color: white;
+      `)
     ));
   }
 }

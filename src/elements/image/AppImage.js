@@ -8,11 +8,10 @@ export default class AppImage extends AppElement {
       src: AppElement.handleAttribute
     });
     this.shadowRoot.prepend(
-      AppElement.createStyles(`#${this.element.id}`,
-        `
+      AppElement.createStyles(`#${this.element.id}`,`
         display: inline-block;
-        `
-      ));
+      `)
+    );
   }
 }
 

@@ -13,13 +13,8 @@ export default class AppSurface extends AppElement {
         backdrop-filter: blur(10px); /* Apply a blur effect */
         -webkit-backdrop-filter: blur(10px); /* For Safari */
         border-radius: 5px; /* Adjust as needed */
-        transition: 0.5s ease-in-out;
+        transition: 0.1s ease-in-out;
       `),
-      AppElement.createStyles(`#${this.element.id}:hover`,`
-        transition: 0.5s ease-in-out;
-        background: rgba(0,0,0,0.65);
-        color: white;
-      `)
     )
   }
 }
