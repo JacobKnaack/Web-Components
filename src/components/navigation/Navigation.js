@@ -1,14 +1,13 @@
 'use strict';
 
-import AppComponent from '../../lib/AppComponent/index.js';
+import AppComponent from '../../lib/component/AppComponent.js';
 
 export default class AppNavigation extends AppComponent {
   constructor() {
-    super();
+    super('app-nav');
     this.shadowRoot.innerHTML = `
       <style id="app-nav-styles">
         :host {
-          background-color: #ffffff;
           display: inline-block;
           font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
@@ -28,6 +27,7 @@ export default class AppNavigation extends AppComponent {
         :host #app-navigation {
           display: inline-block;
           height: 100%;
+          vertical-align: bottom;
         }
 
         :host h2 {

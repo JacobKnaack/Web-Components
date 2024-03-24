@@ -1,6 +1,6 @@
 'use strict';
 
-import AppComponent from '../../lib/AppComponent/index.js';
+import AppComponent from '../../lib/component/AppComponent.js';
 
 export default class AppList extends AppComponent {
   constructor() {

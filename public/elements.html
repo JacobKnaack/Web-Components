@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Elements</title>
+  <script src="./bundle.js"></script>
+  <style>
+    html {
+      background-color: #ebebeb;
+      color: #003B4A;
+    }
+    header {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    main {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      max-width: 960px;
+      flex-wrap: wrap;
+      margin: 0 auto;
+    }
+
+    main section {
+      max-width: 300px;
+      margin: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>App Elements Test</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Buttons</h2>
+      <app-button value="test value" handler="alert">Default Button</app-button>
+      <app-button>Primary Button</app-button>
+    </section>
+    <section style="width: 300px;">
+      <h2>Inputs</h2>
+      <app-input type="text" placeholder="placeholder value 1"></app-input>
+      <app-input type="text" label="Input Label 1" placeholder="placeholder value 2"></app-input>
+    </section>
+    <section>
+      <h2>Headings</h2>
+      <app-heading>Default Heading Text</app-heading>
+      <app-heading type="h1">Level 1</app-heading>
+      <app-heading type="h2">Level 2</app-heading>
+      <app-heading type="h3">Level 3</app-heading>
+      <app-heading type="h4">Level 4</app-heading>
+      <app-heading type="h5">Level 5</app-heading>
+      <app-heading type="h6">Level 6</app-heading>
+    </section>
+    <section>
+      <h2>Images</h2>
+      <app-image src="https://place-hold.it/200x200"></app-image>
+    </section>
+    <section>
+      <h2>Surface</h2>
+      <app-surface>
+        <h2>Default Surface Type</h2>
+        <p>Default Surface with child elements.</p>
+      </app-surface>
+      <app-surface type="glass">
+        <h2>Glass Surface Type</h2>
+        <p>Glass surfaces are transparent with a slight blur.</p>
+      </app-surface>
+      <app-surface type="paper">
+        <h2>Paper Surface Type</h2>
+        <p>Paper surfaces have a subtle border and box-shadow.</p>
+      </app-surface>
+    </section>
+    <section>
+      <h2>Text</h2>
+      <app-text>Some really pretty text.</app-text>
+      <app-text>Quisque hendrerit purus eu neque condimentum vulputate. Cras rutrum vitae massa sit amet sodales. Maecenas vel risus in
+      turpis rhoncus condimentum. Cras non egestas leo, eget viverra lectus. Quisque eu erat blandit, malesuada velit sit
+      amet, faucibus magna. Donec tempor porttitor nisi, eu interdum urna consequat sit amet. Quisque bibendum lorem erat, a
+      efficitur libero interdum eget. Curabitur nec laoreet felis, ut feugiat ligula. Sed sodales neque nec justo fringilla
+      accumsan. Sed posuere sodales risus, nec aliquam turpis dapibus id. Aliquam elit arcu, porttitor sit amet auctor sed,
+      elementum ut sem. Vestibulum ornare feugiat urna, efficitur luctus metus sollicitudin in. Duis imperdiet ullamcorper
+      turpis a lacinia. Suspendisse eget tempus leo.</app-text>
+    </section>
+    <section>
+      <h2>Links</h2>
+      <app-link href="/">Link Text</app-link>
+    </section>
+  </main>
+</body>
+</html>

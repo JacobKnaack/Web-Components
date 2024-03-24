@@ -17,7 +17,7 @@ export default class AppComponent extends HTMLElement {
     }
   }
 
-  // #getElement() {}
+  // #getElement() { return this.shadowRoot.querySelector(`#${this.name}-container`)}
   // setBackgroundColor(colorValue) {}
 
   render(element) {
