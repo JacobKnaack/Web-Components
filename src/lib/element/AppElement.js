@@ -77,7 +77,7 @@ export default class AppElement extends HTMLElement {
   static createStyles(selectors, css) {
     let styles = document.createElement('style');
     styles.innerHTML = `
-      :host ${selectors} {${css}}
+      :host ${selectors} {${css.trim()}}
     `;
     return styles;
   }
@@ -97,6 +97,9 @@ export default class AppElement extends HTMLElement {
           this.element = result;
           this.shadowRoot.append(result);
         }
+      }
+      if (this.onMount) {
+        this.onMount(this.element);
       }
     }
   }

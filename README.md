@@ -54,7 +54,9 @@ You can render individual custom elements using raw HTML in your markup.
   <body>
     <header>
       <app-heading>My Awesome Web Page</app-heading>
-      <app-button>Login</app-button>
+      <app-button>
+        <app-link href="/login">Login</app-link>
+      </app-button>
     </header>
   </body>
 </html>
