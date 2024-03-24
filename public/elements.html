@@ -5,6 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Elements</title>
   <script src="./bundle.js"></script>
+  <style>
+    html {
+      background-color: #ebebeb;
+      color: #003B4A;
+    }
+    header {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    main {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      max-width: 960px;
+      flex-wrap: wrap;
+      margin: 0 auto;
+    }
+
+    main section {
+      max-width: 300px;
+      margin: 4px;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -38,7 +64,16 @@
     <section>
       <h2>Surface</h2>
       <app-surface>
-        <p>Default Surface</p>
+        <h2>Default Surface Type</h2>
+        <p>Default Surface with child elements.</p>
+      </app-surface>
+      <app-surface type="glass">
+        <h2>Glass Surface Type</h2>
+        <p>Glass surfaces are transparent with a slight blur.</p>
+      </app-surface>
+      <app-surface type="paper">
+        <h2>Paper Surface Type</h2>
+        <p>Paper surfaces have a subtle border and box-shadow.</p>
       </app-surface>
     </section>
     <section>

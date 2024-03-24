@@ -61,6 +61,9 @@ export default class AppElement extends HTMLElement {
     replace.parentNode.replaceChild(newElement, replace);
     return newElement;
   }
+  static mapValueToAttribute(key, value, element) {
+    element.setAttribute(key, value);
+  }
   static mapValueToParent(elementName, elementText, child) {
     let element = AppElement.createElement(elementName, {
       textContent: elementText
